@@ -41,6 +41,14 @@ public class NetworkManager : MonoBehaviour
         {
             buf = Encoding.UTF8.GetBytes("1");
         }
+        else if (direction == -2)
+        {
+            buf = Encoding.UTF8.GetBytes("-2");
+        }
+        else if (direction == 2)
+        {
+            buf = Encoding.UTF8.GetBytes("2");
+        }
         else
         {
             buf = Encoding.UTF8.GetBytes("0");

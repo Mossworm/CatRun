@@ -16,13 +16,20 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            //transform.Translate(-3, 0, 0);
             NetworkManager.GetComponent<NetworkManager>().SendData(-1);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            //transform.Translate(3, 0, 0);
             NetworkManager.GetComponent<NetworkManager>().SendData(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            NetworkManager.GetComponent<NetworkManager>().SendData(-2);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            NetworkManager.GetComponent<NetworkManager>().SendData(2);
         }
     }
 
@@ -36,6 +43,15 @@ public class PlayerController : MonoBehaviour
         else if (txt == "1")
         {
             transform.Translate(3, 0, 0);
+        }
+
+        if (txt == "-2")
+        {
+            transform.Translate(0, 3, 0);
+        }
+        else if (txt == "2")
+        {
+            transform.Translate(0, -3, 0);
         }
     }
 }
