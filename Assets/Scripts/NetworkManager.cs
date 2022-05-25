@@ -60,8 +60,8 @@ public class NetworkManager : MonoBehaviour
         string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
 
         //받은 내용을 가지고 고양이를 이동시키는 메소드를 호출
-        player.GetComponent<PlayerController>().transformCat(txt);
-        Debug.Log(txt);
+        //player.GetComponent<PlayerController>().transformCat(txt);
+        //Debug.Log(txt);
 
     }
 }

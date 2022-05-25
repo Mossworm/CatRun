@@ -5,53 +5,71 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     GameObject NetworkManager;
-    // Start is called before the first frame update
+
+    public Vector3 postion;
+    [SerializeField] float Speed = 10;
+
     void Start()
     {
-        this.NetworkManager = GameObject.Find("NetworkManager");
+        //네트워크 매니저를 통해 서버에서 값을 받는 방식
+        //this.NetworkManager = GameObject.Find("NetworkManager");
+        postion = transform.position;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            NetworkManager.GetComponent<NetworkManager>().SendData(-1);
+            this.GetComponent<SpriteRenderer>().flipX = false;
+            postion.x -= Speed*Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            NetworkManager.GetComponent<NetworkManager>().SendData(1);
+            this.GetComponent<SpriteRenderer>().flipX = true;
+            postion.x += Speed * Time.deltaTime;
         }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            postion.y += Speed*Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            postion.y -= Speed * Time.deltaTime;
+        }
+        transform.position = postion;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            NetworkManager.GetComponent<NetworkManager>().SendData(-2);
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            NetworkManager.GetComponent<NetworkManager>().SendData(2);
-        }
+
+
+
+
     }
 
-    //네트워크를 위한 매소드
-    public void transformCat(string txt)
-    {
-        if (txt == "-1")
-        {
-            transform.Translate(-3, 0, 0);
-        }
-        else if (txt == "1")
-        {
-            transform.Translate(3, 0, 0);
-        }
 
-        if (txt == "-2")
-        {
-            transform.Translate(0, 3, 0);
-        }
-        else if (txt == "2")
-        {
-            transform.Translate(0, -3, 0);
-        }
-    }
+
+
+
+    ////네트워크를 위한 매소드
+    //public void transformCat(string txt)
+    //{
+    //    if (txt == "-1")
+    //    {
+    //        transform.Translate(-3, 0, 0);
+    //    }
+    //    else if (txt == "1")
+    //    {
+    //        transform.Translate(3, 0, 0);
+    //    }
+
+    //    if (txt == "-2")
+    //    {
+    //        transform.Translate(0, 3, 0);
+    //    }
+    //    else if (txt == "2")
+    //    {
+    //        transform.Translate(0, -3, 0);
+    //    }
+    //}
+
+
 }
