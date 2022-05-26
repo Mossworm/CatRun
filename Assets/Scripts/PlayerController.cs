@@ -6,6 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     GameObject NetworkManager;
 
+    public GameObject prfHPBar;
+    public GameObject canvas;
+
+    RectTransform hpBar;
+
+    public float height = 1.7f;
+
     public Vector3 postion;
     [SerializeField] float Speed = 10;
 
@@ -14,6 +21,8 @@ public class PlayerController : MonoBehaviour
         //네트워크 매니저를 통해 서버에서 값을 받는 방식
         //this.NetworkManager = GameObject.Find("NetworkManager");
         postion = transform.position;
+
+        hpBar = Instantiate(prfHPBar,canvas.transform).GetComponent<RectTransform>();
     }
 
 
@@ -39,8 +48,8 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = postion;
 
-
-
+        Vector3 _hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
+        hpBar.position = _hpBarPos;
 
 
     }
