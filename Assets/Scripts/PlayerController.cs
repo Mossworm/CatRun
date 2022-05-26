@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     RectTransform hpBar;
 
-    private float height = 1.5f;
+    private float height = -1.5f;
 
     public Vector3 postion;
     [SerializeField] float Speed = 10;
