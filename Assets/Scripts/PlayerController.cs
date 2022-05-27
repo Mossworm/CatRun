@@ -67,32 +67,4 @@ public class PlayerController : MonoBehaviour
         Vector3 _hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         hpBar.position = _hpBarPos;
     }
-
-
-
-
-
-    ////네트워크를 위한 매소드
-    //public void transformCat(string txt)
-    //{
-    //    if (txt == "-1")
-    //    {
-    //        transform.Translate(-3, 0, 0);
-    //    }
-    //    else if (txt == "1")
-    //    {
-    //        transform.Translate(3, 0, 0);
-    //    }
-
-    //    if (txt == "-2")
-    //    {
-    //        transform.Translate(0, 3, 0);
-    //    }
-    //    else if (txt == "2")
-    //    {
-    //        transform.Translate(0, -3, 0);
-    //    }
-    //}
-
-
 }

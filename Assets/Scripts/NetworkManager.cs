@@ -27,7 +27,7 @@ public class NetworkManager : MonoBehaviour
     {
         
     }
-
+    
     public void SendData(int direction)
     {
         byte[] buf = new byte[16];
@@ -58,10 +58,5 @@ public class NetworkManager : MonoBehaviour
 
         int nRecv = clntSocket.ReceiveFrom(recvBytes, ref serverEP);
         string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
-
-        //받은 내용을 가지고 고양이를 이동시키는 메소드를 호출
-        //player.GetComponent<PlayerController>().transformCat(txt);
-        //Debug.Log(txt);
-
     }
 }
