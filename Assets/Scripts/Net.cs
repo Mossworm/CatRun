@@ -4,6 +4,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace YCCSNET {
+
+
+
     public static class net_event<T> where T : packet_t<T> {
         static Action<T, int> act;
         public static void subscribe(Action<T, int> ev) {

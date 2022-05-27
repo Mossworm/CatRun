@@ -6,13 +6,20 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using YCCSNET;
+
 
 
 public class NetworkManager : MonoBehaviour
 {
     GameObject player;
-    Socket clntSocket;
-    EndPoint serverEP;
+    static Socket clntSocket;
+    static EndPoint serverEP;
+
+    static void send<T>(T data) where T : packet_t<T> {
+        var buf = packet_mgr.make_buffer<T>(data.Serialize());
+        clntSocket.SendTo(buf.ToArray(), serverEP);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -27,36 +34,10 @@ public class NetworkManager : MonoBehaviour
     {
         
     }
-    
-    public void SendData(int direction)
-    {
-        byte[] buf = new byte[16];
-        byte[] recvBytes = new byte[16];
 
-        if (direction == -1)
-        {
-            buf = Encoding.UTF8.GetBytes("-1"); 
-        }
-        else if (direction == 1)
-        {
-            buf = Encoding.UTF8.GetBytes("1");
-        }
-        else if (direction == -2)
-        {
-            buf = Encoding.UTF8.GetBytes("-2");
-        }
-        else if (direction == 2)
-        {
-            buf = Encoding.UTF8.GetBytes("2");
-        }
-        else
-        {
-            buf = Encoding.UTF8.GetBytes("0");
-        }
-
-        clntSocket.SendTo(buf, serverEP);
-
-        int nRecv = clntSocket.ReceiveFrom(recvBytes, ref serverEP);
-        string txt = Encoding.UTF8.GetString(recvBytes, 0, nRecv);
+    public void SendData(int dir) {
+        var input = new p_input();
+        input.input = (char)dir;
+        send(input);
     }
 }
