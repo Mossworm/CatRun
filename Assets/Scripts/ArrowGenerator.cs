@@ -56,7 +56,6 @@ public class ArrowGenerator : MonoBehaviour
         if (isDelay == false)
         {
             isDelay = true;
-            Debug.Log("화살발사");
             ShootingArrow();
             StartCoroutine(ShootDelay());
         }
