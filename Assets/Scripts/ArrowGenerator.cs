@@ -9,7 +9,7 @@ public class ArrowGenerator : MonoBehaviour
     private int direction = 0; //¿À¸¥ÂÊ
     private float shootSpeed = 20.0f;
 
-    private float delayTime = 0.5f;
+    [SerializeField] float delayTime = 0.5f;
     public bool isDelay;
 
     void Start()
