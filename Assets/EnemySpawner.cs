@@ -36,13 +36,13 @@ public class EnemySpawner : MonoBehaviour
         GameObject Enemy = Instantiate(EnemyPrefab) as GameObject;
         Vector3 newPos = Vector3.zero;
 
-        newPos.x = Random.Range(-30f, 30f);
-        newPos.y = Random.Range(-30f, 30f);
+        newPos.x = Random.Range(-35f, 35f);
+        newPos.y = Random.Range(-35f, 35f);
 
-        while (-25<newPos.x && newPos.x<25 && -25 < newPos.y && newPos.y < 25)
+        while (-30<newPos.x && newPos.x<30 && -30 < newPos.y && newPos.y < 30)
         {
-            newPos.x = Random.Range(-30f, 30f);
-            newPos.y = Random.Range(-30f, 30f);
+            newPos.x = Random.Range(-35f, 35f);
+            newPos.y = Random.Range(-35f, 35f);
         }
 
         Enemy.transform.position = newPos;
