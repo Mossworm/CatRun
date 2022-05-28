@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     GameObject NetworkManager;
 
     public GameObject prfHPBar;
+    public GameObject HPGauge;
     public GameObject canvas;
 
     RectTransform hpBar;
@@ -16,16 +18,22 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 postion;
     [SerializeField] float Speed = 10;
+    [SerializeField] float HP = 100;
+    [SerializeField] float MaxHP = 100;
+
     char dir;
     static Dictionary<KeyCode, char> input_map = new Dictionary<KeyCode, char>();
 
     void Start()
     {
+        HP = MaxHP;
         //네트워크 매니저를 통해 서버에서 값을 받는 방식
         //this.NetworkManager = GameObject.Find("NetworkManager");
         postion = transform.position;
 
         hpBar = Instantiate(prfHPBar, canvas.transform).GetComponent<RectTransform>();
+        HPGauge = GameObject.Find("hp_bar");
+
 
         input_map[KeyCode.LeftArrow] = (char)1;
         input_map[KeyCode.RightArrow] = (char)2;
@@ -72,5 +80,14 @@ public class PlayerController : MonoBehaviour
         movement();
         Vector3 _hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         hpBar.position = _hpBarPos;
+        HPGauge.GetComponent<Image>().fillAmount = HP / MaxHP;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            HP -= 15.0f * Time.deltaTime;
+        }
     }
 }

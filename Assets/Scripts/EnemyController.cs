@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public GameObject target;
 
     [SerializeField] float enemyMoveSpeed = 5.0f;
+    [SerializeField] int enemyHP = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,10 @@ public class EnemyController : MonoBehaviour
     {
         target = FindNearestObjectByTag("Player");
         movement();
+        if (enemyHP <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private GameObject FindNearestObjectByTag(string tag)
@@ -53,4 +58,16 @@ public class EnemyController : MonoBehaviour
             this.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Arrow")
+        {
+            Debug.Log("¸ÂÀ½");
+            enemyHP -= 1;
+            Destroy(other.gameObject);
+        }
+    }
+
+
 }
