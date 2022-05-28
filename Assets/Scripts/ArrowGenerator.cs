@@ -9,8 +9,8 @@ public class ArrowGenerator : MonoBehaviour
     private int direction = 0; //오른쪽
     private float shootSpeed = 20.0f;
 
-    private float delayTime = 0.5f;
-    public bool isDelay;
+    [SerializeField] float delayTime = 0.5f;
+    private bool isDelay;
 
     void Start()
     {
@@ -56,7 +56,6 @@ public class ArrowGenerator : MonoBehaviour
         if (isDelay == false)
         {
             isDelay = true;
-            Debug.Log("화살발사");
             ShootingArrow();
             StartCoroutine(ShootDelay());
         }
