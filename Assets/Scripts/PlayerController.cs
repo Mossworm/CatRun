@@ -68,6 +68,27 @@ public class PlayerController : MonoBehaviour
         {
             postion.y -= Speed * Time.deltaTime;
         }
+
+
+        if (postion.x< -25)
+        {
+            postion.x = -25;
+        }
+        if (postion.x > 25)
+        {
+            postion.x = 25;
+        }
+        if (postion.y < -25)
+        {
+            postion.y = -25;
+        }
+        if (postion.y > 25)
+        {
+            postion.y = 25;
+        }
+
+
+
         transform.position = postion;
     }
 
