@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -21,11 +21,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //³×Æ®¿öÅ© ¸Å´ÏÀú¸¦ ÅëÇØ ¼­¹ö¿¡¼­ °ªÀ» ¹Ş´Â ¹æ½Ä
+        //ë„¤íŠ¸ì›Œí¬ ë§¤ë‹ˆì €ë¥¼ í†µí•´ ì„œë²„ì—ì„œ ê°’ì„ ë°›ëŠ” ë°©ì‹
         //this.NetworkManager = GameObject.Find("NetworkManager");
         postion = transform.position;
 
-        hpBar = Instantiate(prfHPBar,canvas.transform).GetComponent<RectTransform>();
+        hpBar = Instantiate(prfHPBar, canvas.transform).GetComponent<RectTransform>();
 
         input_map[KeyCode.LeftArrow] = (char)1;
         input_map[KeyCode.RightArrow] = (char)2;
@@ -33,25 +33,31 @@ public class PlayerController : MonoBehaviour
         input_map[KeyCode.DownArrow] = (char)20;
     }
 
-    void movement_input(char dir_) {
+    void movement_input(char dir_)
+    {
         dir = dir_;
     }
 
-    void movement() {
+    void movement()
+    {
         var r = dir % 10;
 
-        if (r == 1) {
+        if (r == 1)
+        {
             this.GetComponent<SpriteRenderer>().flipX = false;
             postion.x -= Speed * Time.deltaTime;
         }
-        else if (r == 2) {
+        else if (r == 2)
+        {
             this.GetComponent<SpriteRenderer>().flipX = true;
             postion.x += Speed * Time.deltaTime;
         }
-        if ((dir >= 10) && (dir < 20)) {
+        if ((dir >= 10) && (dir < 20))
+        {
             postion.y += Speed * Time.deltaTime;
         }
-        else if (dir >= 20) {
+        else if (dir >= 20)
+        {
             postion.y -= Speed * Time.deltaTime;
         }
         transform.position = postion;
