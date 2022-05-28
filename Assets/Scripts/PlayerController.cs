@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public GameObject prfHPBar;
     public GameObject canvas;
 
+    public bool is_mychr = false;
+
     RectTransform hpBar;
 
     private float height = -1.5f;
@@ -56,8 +58,6 @@ public class PlayerController : MonoBehaviour
         }
         transform.position = postion;
     }
-
-
 
     void Update()
     {
