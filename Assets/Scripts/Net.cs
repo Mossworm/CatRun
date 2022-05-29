@@ -5,24 +5,22 @@ using System.Runtime.InteropServices;
 
 namespace YCCSNET {
 
-
-
     public static class net_event<T> where T : packet_t<T> {
-        static Action<T, int> act;
-        public static void subscribe(Action<T, int> ev) {
+        static Action<T> act;
+        public static void subscribe(Action<T> ev) {
             packet_mgr.packet_recv_callback[default(T).GetType().GetHashCode()] = event_trriger;
             act = ev;
         }
-        public static List<byte> event_trriger(List<byte> data, int id) {
+        public static List<byte> event_trriger(List<byte> data) {
             int size = BitConverter.ToInt32(data.ToArray(), 0);
             data.RemoveRange(0, sizeof(int));
-            act(packet_t<T>.Deserialize(data.GetRange(0, size).ToArray()), id);
+            act(packet_t<T>.Deserialize(data.GetRange(0, size).ToArray()));
             return data.GetRange(size, data.Count - size);
         }
     }
 
     public static class packet_mgr {
-        public static Dictionary<int, Func<List<byte>, int, List<byte>>> packet_recv_callback = new Dictionary<int, Func<List<byte>, int, List<byte>>>();
+        public static Dictionary<int, Func<List<byte>, List<byte>>> packet_recv_callback = new Dictionary<int, Func<List<byte>, List<byte>>>();
 
         public static List<byte> make_buffer<T>(byte[] buf) {
             var r = buf.ToList();
@@ -32,21 +30,20 @@ namespace YCCSNET {
             return r;
         }
 
-        public static void packet_read(List<byte> buf, int id) {
+        public static void packet_read(List<byte> buf) {
             while (buf.Count != 0) {
                 int type = BitConverter.ToInt32(new byte[4] { buf[0], buf[1], buf[2], buf[3] }, 0);
                 buf.RemoveRange(0, 4);
-                buf = packet_recv_callback[type](buf, id);
+                buf = packet_recv_callback[type](buf);
             }
         }
     }
-
 
     [Serializable()]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class p_input : packet_t<p_input> {
         public char input;
-        public bool is_down;
+        public char id;
         public int timestamp;
     }
 
@@ -54,6 +51,7 @@ namespace YCCSNET {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class p_start : packet_t<p_start> {
         public int timestamp;
+        public char my_id;
     }
 
     //int Timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
