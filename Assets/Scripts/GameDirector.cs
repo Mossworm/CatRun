@@ -28,6 +28,23 @@ public class GameDirector : MonoBehaviour
         });
     }
 
+    public List<float> random_nums;
+    int idx = 0;
+    public float get_rn_range(int min, int max) {
+        return random_nums[idx++] % max + min;
+    }
+
+
+    void OnGameStart() {
+        System.Random rn = new System.Random(NetworkManager.seed);
+
+        for (int i = 0; i < 10000; i++) {
+            random_nums.Add(rn.Next() + (float)rn.NextDouble());
+        }
+    }
+
+
+
     // Update is called once per frame
     void Update()
     {

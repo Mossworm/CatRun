@@ -21,6 +21,9 @@ public class NetworkManager : MonoBehaviour
         clntSocket.SendTo(buf.ToArray(), serverEP);
     }
 
+
+
+
     // Start is called before the first frame update
     void Start()
     {

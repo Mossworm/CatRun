@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-
+    public GameDirector GD;
     [SerializeField] float SpawnTime = 5.0f;
     public bool isDelay;
-
     // Start is called before the first frame update
     void Start()
     {
         isDelay = false;
+        GD = FindObjectOfType<GameDirector>();
     }
 
     // Update is called once per frame
@@ -31,20 +31,11 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitForSeconds(SpawnTime);
         isDelay = false;
     }
+
+
     void EnemySpawn()
     {
         GameObject Enemy = Instantiate(EnemyPrefab) as GameObject;
-        Vector3 newPos = Vector3.zero;
-
-        newPos.x = Random.Range(-35f, 35f);
-        newPos.y = Random.Range(-35f, 35f);
-
-        while (-30<newPos.x && newPos.x<30 && -30 < newPos.y && newPos.y < 30)
-        {
-            newPos.x = Random.Range(-35f, 35f);
-            newPos.y = Random.Range(-35f, 35f);
-        }
-
-        Enemy.transform.position = newPos;
+        Enemy.transform.position = new Vector2(GD.get_rn_range(-5, 5) * 7, GD.get_rn_range(-5, 5) * 7);
     }
 }
