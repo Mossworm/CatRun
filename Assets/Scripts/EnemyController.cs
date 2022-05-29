@@ -65,6 +65,7 @@ public class EnemyController : MonoBehaviour
         {
             Debug.Log("¸ÂÀ½");
             enemyHP -= 1;
+            SoundManager.Instance.PlaySFXSound("VS_EnemyHit_v06-02");
             Destroy(other.gameObject);
         }
     }
