@@ -10,6 +10,7 @@ public class Fade_In : MonoBehaviour
     GameObject SplashObj;               //판넬오브젝트
     Image image;                            //판넬 이미지
     private bool checkbool = false;     //투명도 조절 논리형 변수
+    public int SceneNum = 0;
 
 
     void Awake()
@@ -28,7 +29,7 @@ public class Fade_In : MonoBehaviour
         StartCoroutine("MainSplash");                        //코루틴    //판넬 투명도 조절
         if (checkbool)                                            //만약 checkbool 이 참이면
         {                     
-            SceneManager.LoadScene(1); //씬 변경
+            SceneManager.LoadScene(SceneNum); //씬 변경
         }
     }
 
