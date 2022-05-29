@@ -7,40 +7,51 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using YCCSNET;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class NetworkManager : MonoBehaviour
 {
-    GameObject player;
-    static Socket clntSocket;
-    static EndPoint serverEP;
-    public static int seed;
+    public static UdpClient clnt = new UdpClient();
+
+    public static string server_ip = "127.0.0.1";
+    public static int server_port = 9100;
+
+    public static int seed = 0;
     public static char id;
 
-    static void send<T>(T data) where T : packet_t<T> {
+    public static void send<T>(T data) where T : packet_t<T> {
         var buf = packet_mgr.make_buffer<T>(data.Serialize());
-        clntSocket.SendTo(buf.ToArray(), serverEP);
+        clnt.Send(buf.ToArray(), buf.Count, server_ip, server_port);
     }
-
-
-
 
     // Start is called before the first frame update
     void Start()
     {
-        this.player = GameObject.Find("Player");
-        clntSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-        serverEP = new IPEndPoint(IPAddress.Loopback, 10200);
+        DontDestroyOnLoad(this);
+        Task task;
+        task = new Task(() => {
+            while (true) {
+                packet_mgr.packet_read(recv());
+            }
+        });
+        task.Start();
+
+        clnt.Send(new byte[1] { 0 }, 1, server_ip, server_port);
+        clnt.Send(new byte[2] { 0, 0 }, 2, server_ip, server_port);
+    }
+
+    private void Awake() {
+    }
+
+    public static List<byte> recv() {
+        IPEndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
+        return clnt.Receive(ref remoteIPEndPoint).ToList();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void SendData(int dir) {
-        var input = new p_input();
-        input.input = (char)dir;
-        send(input);
     }
 }
