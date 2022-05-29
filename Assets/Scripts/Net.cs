@@ -54,8 +54,6 @@ namespace YCCSNET {
         public char my_id;
     }
 
-    //int Timestamp = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
-
     [Serializable]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public class packet_t<T> where T : class {

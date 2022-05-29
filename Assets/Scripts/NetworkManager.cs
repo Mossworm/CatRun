@@ -24,9 +24,6 @@ public class NetworkManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
-
         this.player = GameObject.Find("Player");
         clntSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         serverEP = new IPEndPoint(IPAddress.Loopback, 10200);

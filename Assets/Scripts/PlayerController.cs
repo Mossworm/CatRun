@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float HP = 100;
     [SerializeField] float MaxHP = 100;
 
-    char dir;
+    public char dir;
     static Dictionary<KeyCode, char> input_map = new Dictionary<KeyCode, char>();
 
     void Start()
