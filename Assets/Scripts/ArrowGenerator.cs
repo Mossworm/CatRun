@@ -15,52 +15,30 @@ public class ArrowGenerator : MonoBehaviour
     void Start()
     {
         isDelay = false;
+        dir_to_arrow_dir[(char)0]  = 0;
+        dir_to_arrow_dir[(char)2]  = 0;
+        dir_to_arrow_dir[(char)1]  = 1;
+        dir_to_arrow_dir[(char)10] = 2;
+        dir_to_arrow_dir[(char)20] = 3;
+        dir_to_arrow_dir[(char)12] = 4;
+        dir_to_arrow_dir[(char)11] = 5;
+        dir_to_arrow_dir[(char)22] = 6;
+        dir_to_arrow_dir[(char)21] = 7;
     }
+
+    Dictionary<char, int> dir_to_arrow_dir = new Dictionary<char, int>();
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            direction = 0;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            direction = 1;
-        }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
-            direction = 2;
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            direction = 3;
-        }
-        if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.UpArrow))
-        {
-            direction = 4;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.UpArrow))
-        {
-            direction = 5;
-        }
-        if (Input.GetKey(KeyCode.RightArrow) && Input.GetKey(KeyCode.DownArrow))
-        {
-            direction = 6;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.DownArrow))
-        {
-            direction = 7;
-        }
-
+        direction = dir_to_arrow_dir[GetComponentInParent<PlayerController>().dir];
+        dir_to_arrow_dir[(char)0] = direction;
         if (isDelay == false)
         {
             isDelay = true;
             ShootingArrow();
             StartCoroutine(ShootDelay());
         }
-
-
     }
 
     IEnumerator ShootDelay()
@@ -75,8 +53,9 @@ public class ArrowGenerator : MonoBehaviour
         //橇府普 积己
         GameObject Arrow = Instantiate(arrowPrefab) as GameObject;
         Arrow.transform.position = newPos;
-        Debug.Log("direction = " + direction);
+        //Debug.Log("direction = " + direction);
         Rigidbody2D rbody = Arrow.GetComponent<Rigidbody2D>();
+
         if (direction == 0) //坷弗率
         {
             Arrow.transform.Rotate(0, 0, 90);
