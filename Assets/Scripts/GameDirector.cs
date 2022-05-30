@@ -73,8 +73,13 @@ public class GameDirector : MonoBehaviour
         {
             game_start_trigger = false;
             StartCoroutine(wait_for_time_and(1f - (float)((NetworkManager.seed - Timestamp) / 1000f), () => {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
             }));
         }
+    }
+
+    public void Remove()
+    {
+        Destroy(gameObject);
     }
 }

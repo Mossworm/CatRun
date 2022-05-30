@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviour
 {
     public static UdpClient clnt = new UdpClient();
 
-    public static string server_ip = "127.0.0.1";
+    public static string server_ip;
     public static int server_port = 9100;
 
     public static int seed = 0;
